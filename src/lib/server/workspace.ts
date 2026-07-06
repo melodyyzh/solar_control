@@ -4,7 +4,7 @@
  * stay clean.
  *
  *   $WORKSPACE_DIR/
- *     best-deals/ … semicond/     ← one per planet
+ *     aniso-chimes/ … career-dev/ ← one per planet
  *       GOAL.md IDEAS.md TODO.md NOTES.md LOG.md papers/
  *     .dashboard/
  *       state.json                ← statuses & misc
