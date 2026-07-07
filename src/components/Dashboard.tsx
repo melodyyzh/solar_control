@@ -128,15 +128,14 @@ export default function Dashboard() {
 
   const patchPlanet = useCallback(
     async (id: string, body: Partial<{ goal: string; idea: string; notes: string; status: PlanetStatus }>) => {
-      if (body.status) {
-        setPlanets((prev) =>
-          prev ? { ...prev, [id]: { ...prev[id], status: body.status! } } : prev,
-        );
-      }
+      setPlanets((prev) => (prev ? { ...prev, [id]: { ...prev[id], ...body } } : prev));
+      const payload = JSON.stringify(body);
       await fetch(`/api/planets/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: payload,
+        // keepalive lets a flush-on-pagehide save survive navigation (64KB cap)
+        keepalive: payload.length < 60_000,
       }).catch(() => setToast("Save failed — check the connection."));
     },
     [],
